@@ -1,0 +1,6 @@
+server:
+  port: 8082
+
+jwt:
+  secret: secret-demo-key
+  ttl: 24h
