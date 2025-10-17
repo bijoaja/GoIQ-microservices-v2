@@ -1,19 +1,46 @@
 version: "3.8"
+
 services:
   gateway:
-    build: ./gateway
+    build:
+      context: ./gateway
+      dockerfile: build/Dockerfile
+    command: ./main
     ports:
       - "8080:8080"
+    environment:
+      - GO_ENV=production
+      - GIN_MODE=release
     depends_on:
       - auth-service
       - user-service
+    networks:
+      - appnet
 
   auth-service:
-    build: ./auth-service
+    build:
+      context: ./auth-service
+      dockerfile: build/Dockerfile
+    command: ./main
     ports:
       - "8082:8082"
+    environment:
+      - GO_ENV=production
+    networks:
+      - appnet
 
   user-service:
-    build: ./user-service
+    build:
+      context: ./user-service
+      dockerfile: build/Dockerfile
+    command: ./main
     ports:
       - "8081:8081"
+    environment:
+      - GO_ENV=production
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge

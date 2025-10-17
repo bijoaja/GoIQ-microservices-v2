@@ -1,0 +1,21 @@
+# Gunakan image Go lengkap agar bisa build & run langsung
+FROM golang:1.25.2-alpine
+
+WORKDIR /app
+
+# Install git (kadang dibutuhkan oleh go get / go mod)
+RUN apk add --no-cache git gcc musl-dev sqlite-dev
+
+# Copy module files (untuk caching dependency)
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy seluruh source code
+COPY . .
+
+# Set environment variable agar dev-friendly
+ENV GO_ENV=development
+ENV CGO_ENABLED=1
+
+# Default command (bisa di-override oleh docker-compose)
+CMD ["sh", "-c", "go mod tidy && go run ./cmd/user-service"]

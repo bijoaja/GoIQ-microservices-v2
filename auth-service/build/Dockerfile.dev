@@ -1,0 +1,21 @@
+# Development image (for docker-compose up)
+FROM golang:1.25.2-alpine
+
+WORKDIR /app
+
+# Install git (required for go get / go mod)
+RUN apk add --no-cache git
+
+# Copy module files and download dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy all project files
+COPY . .
+
+# Set environment variables for dev mode
+ENV GO_ENV=development
+ENV CGO_ENABLED=0
+
+# Default command for development (can be overridden by docker-compose)
+CMD ["sh", "-c", "go mod tidy && go run ./cmd/auth-service"]

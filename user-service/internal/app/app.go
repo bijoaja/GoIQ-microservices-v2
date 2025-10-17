@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/example/micro/user-service/internal/database"
-	"github.com/example/micro/user-service/internal/routes"
+	"github.com/bijoaja/GoIQ-microservices.v2/user-service/internal/database"
+	"github.com/bijoaja/GoIQ-microservices.v2/user-service/internal/routes"
 )
 
 type Server struct {

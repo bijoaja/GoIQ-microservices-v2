@@ -7,7 +7,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/example/micro/user-service/internal/models"
+	"github.com/bijoaja/GoIQ-microservices.v2/user-service/internal/models"
 )
 
 func Connect() *gorm.DB {

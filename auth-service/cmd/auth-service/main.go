@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/example/micro/auth-service/internal/app"
+	"github.com/bijoaja/GoIQ-microservices.v2/auth-service/internal/app"
 )
 
 func main() {

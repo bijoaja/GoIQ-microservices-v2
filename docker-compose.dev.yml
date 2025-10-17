@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: build/Dockerfile.dev
+    volumes:
+      - ./gateway:/app
+    command: sh -c "go mod tidy && go run ./cmd/gateway"
+    ports:
+      - "8080:8080"
+    environment:
+      - GO_ENV=development
+      - GIN_MODE=debug
+      - CGO_ENABLED=0
+    depends_on:
+      - auth-service
+      - user-service
+    networks:
+      - appnet
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: build/Dockerfile.dev
+    volumes:
+      - ./auth-service:/app
+    command: sh -c "go mod tidy && go run ./cmd/auth-service"
+    ports:
+      - "8082:8082"
+    environment:
+      - GO_ENV=development
+      - CGO_ENABLED=0
+    networks:
+      - appnet
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: build/Dockerfile.dev
+    volumes:
+      - ./user-service:/app
+    command: sh -c "go mod tidy && go run ./cmd/user-service"
+    ports:
+      - "8081:8081"
+    environment:
+      - GO_ENV=development
+      - CGO_ENABLED=1
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge

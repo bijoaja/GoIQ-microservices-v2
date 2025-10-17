@@ -3,7 +3,7 @@ package app
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/example/micro/gateway/internal/routes"
+	"github.com/bijoaja/GoIQ-microservices.v2/gateway/internal/routes"
 )
 
 type Server struct {

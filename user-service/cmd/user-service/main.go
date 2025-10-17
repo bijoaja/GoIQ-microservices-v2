@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/example/micro/user-service/internal/app"
+	"github.com/bijoaja/GoIQ-microservices.v2/user-service/internal/app"
 )
 
 func main() {

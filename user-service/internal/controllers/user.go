@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/example/micro/user-service/internal/models"
+	"github.com/bijoaja/GoIQ-microservices.v2/user-service/internal/models"
 )
 
 func ListUsers(db *gorm.DB) gin.HandlerFunc {

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/example/micro/user-service/internal/controllers"
+	"github.com/bijoaja/GoIQ-microservices.v2/user-service/internal/controllers"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
