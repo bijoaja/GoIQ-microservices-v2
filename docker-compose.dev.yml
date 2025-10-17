@@ -8,15 +8,9 @@ services:
     volumes:
       - ./gateway:/app
     command: sh -c "go mod tidy && go run ./cmd/gateway"
-    ports:
-      - "8080:8080"
     environment:
       - GO_ENV=development
       - GIN_MODE=debug
-      - CGO_ENABLED=0
-    depends_on:
-      - auth-service
-      - user-service
     networks:
       - appnet
 
@@ -27,11 +21,8 @@ services:
     volumes:
       - ./auth-service:/app
     command: sh -c "go mod tidy && go run ./cmd/auth-service"
-    ports:
-      - "8082:8082"
     environment:
       - GO_ENV=development
-      - CGO_ENABLED=0
     networks:
       - appnet
 
@@ -42,11 +33,23 @@ services:
     volumes:
       - ./user-service:/app
     command: sh -c "go mod tidy && go run ./cmd/user-service"
-    ports:
-      - "8081:8081"
     environment:
       - GO_ENV=development
-      - CGO_ENABLED=1
+    networks:
+      - appnet
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d/default.dev.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - gateway
+      - auth-service
+      - user-service
     networks:
       - appnet
 
